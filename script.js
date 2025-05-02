@@ -6,6 +6,7 @@ const categoryContainer = document.getElementById("category-button-div");
 const petMain = document.getElementById("pet-main");
 const petAdded = document.getElementById("pet-added");
 const clearButton = document.getElementById("clear-btn");
+const loading = document.getElementById("loading");
 
 menuBtn.addEventListener('click', () => {
     navLinks.classList.toggle('hidden');
@@ -39,6 +40,10 @@ const categoryButtonFunction = async () => {
             petMain.innerHTML = "";
             const link = `https://openapi.programming-hero.com/api/peddy/category/${element.category}`;
             petCardFunction(link, 1);
+            loading.classList.remove('hidden');
+            setTimeout(() => {
+                loading.classList.add('hidden');
+            },2000);
         });
     });
 }
