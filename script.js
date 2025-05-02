@@ -7,6 +7,8 @@ const petMain = document.getElementById("pet-main");
 const petAdded = document.getElementById("pet-added");
 const clearButton = document.getElementById("clear-btn");
 const loading = document.getElementById("loading");
+const viewMoreBtn = document.getElementById('view-more-btn');
+const scrollSection = document.getElementById("scroll-section");
 
 menuBtn.addEventListener('click', () => {
     navLinks.classList.toggle('hidden');
@@ -37,13 +39,14 @@ const categoryButtonFunction = async () => {
         `;
         categoryContainer.appendChild(categoryButton);
         categoryButton.addEventListener("click", () => {
-            petMain.innerHTML = "";
-            const link = `https://openapi.programming-hero.com/api/peddy/category/${element.category}`;
-            petCardFunction(link, 1);
             loading.classList.remove('hidden');
             setTimeout(() => {
                 loading.classList.add('hidden');
-            },2000);
+                petMain.innerHTML = "";
+                petMain.scrollIntoView({ behavior: "smooth" });
+                const link = `https://openapi.programming-hero.com/api/peddy/category/${element.category}`;
+                petCardFunction(link, 1);
+            }, 2000);
         });
     });
 }
@@ -108,4 +111,9 @@ const petCardFunction = async (link = 'https://openapi.programming-hero.com/api/
     });
 }
 petCardFunction();
-// https://img.icons8.com/?size=100&id=0oWpxDgVkkru&format=png&color=131313
+
+// scroll
+
+viewMoreBtn.addEventListener("click", () => {
+    scrollSection.scrollIntoView({ behavior: "smooth" });
+});
