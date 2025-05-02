@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <nav class="bg-white shadow-md w-full sticky top-0 left-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-evenly md:justify-around">
+
+            <!-- Hamburger for mobile -->
+            <div class="md:hidden">
+                <button id="menu-btn" class="text-gray-700 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Logo -->
+            <div class="flex items-center justify-between gap-2 text-xl font-bold text-center md:text-left">
+                <img src="logo.webp" alt="logo" class="h-8 w-8">
+                <p class="text-2xl">Peddy</p>
+            </div>
+
+            <!-- Menu -->
+            <ul id="nav-links" class="hidden md:flex space-x-6 text-gray-700 font-medium">
+                <li><a href="#" class="hover:text-blue-600">Home</a></li>
+                <li><a href="#" class="hover:text-blue-600">Shop</a></li>
+                <li><a href="#" class="hover:text-blue-600">Contact</a></li>
+            </ul>
+
+            <!-- User Icon -->
+            <div class="relative">
+                <button id="user-btn" class="focus:outline-none">
+                    <img src="https://img.icons8.com/?size=100&id=H101gtpJBVoh&format=png&color=000000" alt="icon"
+                        class="w-8 h-8">
+                </button>
+
+                <!-- Dropdown -->
+                <div id="user-menu" class="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-md py-2 hidden">
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Settings</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Logout</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu links -->
+        <ul id="mobile-nav" class="md:hidden hidden bg-white px-4 pb-3 space-y-2 text-gray-700 font-medium">
+            <li><a href="#" class="block py-2">Home</a></li>
+            <li><a href="#" class="block py-2">Shop</a></li>
+            <li><a href="#" class="block py-2">Contact</a></li>
+        </ul>
+    </nav>
+    <section class="flex flex-col items-center justify-center py-7 gap-5 max-sm:px-8">
+        <p>Bringing Families Together ❤️‍🔥 </p>
+        <h1 class="text-center text-5xl font-bold">Your path to adoption <br> starts here</h1>
+        <p class="text-center text-lg">It is a long established fact that a reader will be distracted by <br> the
+            readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a.</p>
+        <button
+            class="bg-[#0E7A81] px-4 py-2 text-lg border-none rounded-md cursor-pointer text-white hover:bg-[#0a6369]">View
+            More</button>
+        <img src="pet.webp" alt="pets">
+    </section>
+
+    <section class="flex flex-col items-center justify-between gap-5 max-sm:px-8">
+        <h1 class="text-center text-5xl font-bold">Adopt Your Best Friend</h1>
+        <p class="text-lg">It is a long established fact that a reader will be distracted by the readable content of a
+            page when looking at its layout. The point of using Lorem Ipsum is that it has a.</p>
+        <div id="category-button-div"
+            class="flex items-center justify-evenly w-full max-sm:px-4 max-sm:grid max-sm:grid-cols-2 max-sm:gap-2">
+        </div>
+        <div class="flex items-center justify-between w-4/5 mx-auto max-sm:flex-col max-sm:gap-4">
+            <p class="text-lg font-bold">Best Deal for You</p>
+            <button
+                class="bg-[#0E7A81] px-4 py-2 text-lg border-none rounded-md cursor-pointer text-white hover:bg-[#0a6369] max-sm:px-2 max-sm:py-1">Sort
+                by Price</button>
+        </div>
+    </section>
+
+    <section class="flex items-start justify-between gap-5 w-4/5 mx-auto mt-16 max-sm:flex-col-reverse max-sm:w-full max-sm:px-4">
+        <div class="w-8/11 grid grid-cols-3 gap-4 max-sm:grid-cols-1 max-sm:w-full" id="pet-main"></div>
+        <div class="w-3/11 flex flex-col items-center gap-4 max-sm:w-full">
+            <div class="w-full grid grid-cols-2 gap-4 max-sm:grid-cols-3" id="pet-added"></div>
+            <div id="clear-btn"></div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
