@@ -29,6 +29,7 @@ sort.addEventListener("click", async () => {
     const sortobj = Object.fromEntries(petID.map((id, i) => [id, priceList[i]]));
     const sortPriceList = (Object.values(sortobj).sort((x, y) => x - y));
     const sortedKeys = Object.entries(sortobj).sort((a, b) => a[1] - b[1]).map(entry => entry[0]);
+    console.log(sortobj, sortPriceList, sortedKeys);
     petMain.innerHTML = "";
     for (let i = 0; i < data.length; i++) {
         LoadById(parseInt(sortedKeys[i]));
