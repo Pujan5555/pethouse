@@ -86,7 +86,8 @@
         <div class="flex items-center justify-between w-4/5 mx-auto max-sm:flex-col max-sm:gap-4">
             <p class="text-lg font-bold">Best Deal for You</p>
             <button
-                class="bg-[#0E7A81] px-4 py-2 text-lg border-none rounded-md cursor-pointer text-white hover:bg-[#0a6369] max-sm:px-2 max-sm:py-1" id="sort">Sort
+                class="bg-[#0E7A81] px-4 py-2 text-lg border-none rounded-md cursor-pointer text-white hover:bg-[#0a6369] max-sm:px-2 max-sm:py-1"
+                id="sort">Sort
                 by Price</button>
         </div>
     </section>
@@ -105,7 +106,8 @@
                 <div class="modal-action bg-blue-200 rounded-md opacity-70">
                     <form method="dialog" class="mx-auto">
                         <!-- if there is a button in form, it will close the modal -->
-                        <button class="btn font-bold text-blue-700 hover:text-blue-900 hover:font-extrabold">Close</button>
+                        <button
+                            class="btn font-bold text-blue-700 hover:text-blue-900 hover:font-extrabold">Close</button>
                     </form>
                 </div>
             </div>
@@ -113,8 +115,34 @@
         <!-- dialogggg -->
     </section>
 
-    <footer class="flex items-center justify-center w-full">
-        <img src="pet.webp" alt="">
+    <footer class="footer sm:footer-horizontal bg-black text-white p-10 flex justify-around mt-20 max-sm:flex-col">
+        <nav>
+            <h6 class="footer-title justify-center font-bold text-white text-2xl flex items-center gap-2">
+                <img src="logo.webp" alt="peddy" class="w-8 h-8">
+                Peddy
+            </h6>
+            <a class="link link-hover">Branding</a>
+            <a class="link link-hover">Design</a>
+            <a class="link link-hover">Marketing</a>
+            <a class="link link-hover">Advertisement</a>
+        </nav>
+        <nav>
+            <h6 class="footer-title">Company</h6>
+            <a class="link link-hover">About us</a>
+            <a class="link link-hover">Contact</a>
+            <a class="link link-hover">Jobs</a>
+            <a class="link link-hover">Press kit</a>
+        </nav>
+        <form>
+            <h6 class="footer-title">Newsletter for Peddy</h6>
+            <fieldset class="w-80 flex flex-col gap-2">
+                <label>Enter your email address</label>
+                <div class="join flex flex-col gap-2">
+                    <input type="email" placeholder="username@site.com" class="input input-bordered join-item outline-none p-2 text-black" />
+                    <button class="btn btn-primary join-item bg-[#0E7A81] text-white">Subscribe to Peddy</button>
+                </div>
+            </fieldset>
+        </form>
     </footer>
     <script src="script.js"></script>
 </body>
