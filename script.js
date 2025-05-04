@@ -33,9 +33,17 @@ sort.addEventListener("click", async () => {
     for (let i = 0; i < data.length; i++) {
         LoadById(parseInt(sortedKeys[i]));
     }
+    for (let x = 0; x < categoryContainer.children.length; x++) {
+        categoryContainer.children[x].classList.remove(
+            "bg-[rgba(200,200,243,0.44)]",
+            "rounded-full",
+            "border-2",
+            "border-blue-500"
+        );
+    }
 });
 async function LoadById(id) {
-    const res = await fetch('https://openapi.programming-hero.com/api/peddy/pet/' + id);
+    const res = await fetch('https://openapi.programming-hero.com/api/peddy/pet/'+id);
     const info = await res.json();
     const data = info.petData;
     const petCard = document.createElement('div');
@@ -116,6 +124,7 @@ async function LoadById(id) {
         e.target.classList.add("cursor-not-allowed");
     });
 }
+// modal for sorted pets
 async function showModalAfterSortFunction(pet_id) {
     const res = await fetch('https://openapi.programming-hero.com/api/peddy/pet/' + pet_id);
     const info = await res.json();
@@ -147,6 +156,7 @@ async function showModalAfterSortFunction(pet_id) {
                 <p class="text-center">${data.pet_details}</p>
         </div>`;
 }
+// modal for sorted pets
 // sorting
 
 petModal.classList.add(
