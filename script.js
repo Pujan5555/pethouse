@@ -1,67 +1,111 @@
-const menuBtn = document.getElementById('menu-btn');
-const navLinks = document.getElementById('mobile-nav');
-const userBtn = document.getElementById('user-btn');
-const userMenu = document.getElementById('user-menu');
+const menuBtn = document.getElementById("menu-btn");
+const navLinks = document.getElementById("mobile-nav");
+const userBtn = document.getElementById("user-btn");
+const userMenu = document.getElementById("user-menu");
 const categoryContainer = document.getElementById("category-button-div");
 const petMain = document.getElementById("pet-main");
 const petAdded = document.getElementById("pet-added");
 const clearButton = document.getElementById("clear-btn");
 const loading = document.getElementById("loading");
-const viewMoreBtn = document.getElementById('view-more-btn');
+const viewMoreBtn = document.getElementById("view-more-btn");
 const scrollSection = document.getElementById("scroll-section");
 
-menuBtn.addEventListener('click', () => {
-    navLinks.classList.toggle('hidden');
+menuBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("hidden");
 });
 
-userBtn.addEventListener('click', () => {
-    userMenu.classList.toggle('hidden');
+userBtn.addEventListener("click", () => {
+    userMenu.classList.toggle("hidden");
 });
 
 // Optional: close menus on outside click
-window.addEventListener('click', (e) => {
+window.addEventListener("click", (e) => {
     if (!userBtn.contains(e.target) && !userMenu.contains(e.target)) {
-        userMenu.classList.add('hidden');
+        userMenu.classList.add("hidden");
     }
 });
 // category button code
 const categoryButtonFunction = async () => {
-    const response = await fetch('https://openapi.programming-hero.com/api/peddy/categories');
+    const response = await fetch(
+        "https://openapi.programming-hero.com/api/peddy/categories"
+    );
     const data = await response.json();
     const categories = data.categories;
-    categories.forEach(element => {
+    categories.forEach((element) => {
         const categoryButton = document.createElement("button");
         categoryButton.setAttribute("id", element.category);
-        categoryButton.classList.add("flex", "items-center", "justify-center", "gap-2", "hover:bg-[rgba(200,200,243,0.44)]", "hover:rounded-full", "hover:border-2", "hover:border-blue-500", "transition-all", "p-3");
+        categoryButton.classList.add(
+            "flex",
+            "items-center",
+            "justify-center",
+            "gap-2",
+            "hover:bg-[rgba(200,200,243,0.44)]",
+            "hover:rounded-full",
+            "hover:border-2",
+            "hover:border-blue-500",
+            "transition-all",
+            "p-3"
+        );
         categoryButton.innerHTML = `
             <img src ="${element.category_icon}" alt="pets"/>
             <p class="text-lg font-bold">${element.category}</p>
         `;
         categoryContainer.appendChild(categoryButton);
         categoryButton.addEventListener("click", () => {
-            loading.classList.remove('hidden');
+            loading.classList.remove("hidden");
             setTimeout(() => {
-                loading.classList.add('hidden');
+                loading.classList.add("hidden");
                 petMain.innerHTML = "";
                 petMain.scrollIntoView({ behavior: "smooth" });
                 const link = `https://openapi.programming-hero.com/api/peddy/category/${element.category}`;
                 petCardFunction(link, 1);
             }, 2000);
+            buttonSaverFunction();
+            categoryButton.classList.add(
+                "bg-[rgba(200,200,243,0.44)]",
+                "rounded-full",
+                "border-2",
+                "border-blue-500"
+            );
         });
     });
-}
+    function buttonSaverFunction() {
+        for (let i = 0; i < categoryContainer.children.length; i++) {
+            categoryContainer.children[i].classList.remove(
+                "bg-[rgba(200,200,243,0.44)]",
+                "rounded-full",
+                "border-2",
+                "border-blue-500"
+            );
+        }
+    }
+};
 categoryButtonFunction();
 // pet card code
-const petCardFunction = async (link = 'https://openapi.programming-hero.com/api/peddy/pets', n = 0) => {
+const petCardFunction = async (
+    link = "https://openapi.programming-hero.com/api/peddy/pets",
+    n = 0
+) => {
     const response = await fetch(link);
     const info = await response.json();
     const pets = info.pets;
     const data = info.data;
     const ar = [pets, data];
-    ar[n].forEach(element => {
+    ar[n].forEach((element) => {
         const petCard = document.createElement("div");
         const petId = element.petId;
-        petCard.classList.add("flex", "flex-col", "items-start", "justify-center", "gap-3", "p-4", "border-2", "border-blue-100", "rounded-xl", "max-sm:w-full");
+        petCard.classList.add(
+            "flex",
+            "flex-col",
+            "items-start",
+            "justify-center",
+            "gap-3",
+            "p-4",
+            "border-2",
+            "border-blue-100",
+            "rounded-xl",
+            "max-sm:w-full"
+        );
         petCard.innerHTML = `
                 <img src ="${element.image}" alt="pets" class="rounded-xl object-cover h-full"/>
                 <p class="text-2xl font-bold">${element.pet_name}</p>
@@ -91,7 +135,7 @@ const petCardFunction = async (link = 'https://openapi.programming-hero.com/api/
         let isClear = false;
         document.getElementById(petId).addEventListener("click", () => {
             isClear = true;
-            const likePet = document.createElement('div');
+            const likePet = document.createElement("div");
             const clearLiked = "liked";
             likePet.innerHTML = `
                     <img src="${element.image}" class="rounded-lg"/>
@@ -109,9 +153,15 @@ const petCardFunction = async (link = 'https://openapi.programming-hero.com/api/
             });
         });
     });
-}
+    console.log(petMain.children.length);
+    if (petMain.children.length === 0) {
+        petMain.innerHTML = `<img src="error.webp" class="mx-auto text-center col-span-3"/>
+        <h1 class="font-bold text-2xl text-center mx-auto col-span-3">No Information Available</h1>
+        <p class="text-lg text-center mx-auto col-span-3">It is a long established fact that a reader will be distracted by the readable content of a page when looking at 
+        its layout. The point of using Lorem Ipsum is that it has a.</p>`;
+    }
+};
 petCardFunction();
-
 // scroll
 
 viewMoreBtn.addEventListener("click", () => {
