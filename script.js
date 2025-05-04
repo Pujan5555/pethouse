@@ -11,7 +11,7 @@ const viewMoreBtn = document.getElementById("view-more-btn");
 const scrollSection = document.getElementById("scroll-section");
 const petModal = document.getElementById('pet-modal');
 
-petModal.classList.add("flex", "flex-col", "gap-2", "overflow-scroll", "h-[600px]", "max-sm:py-2");
+petModal.classList.add("flex", "flex-col", "gap-2", "overflow-scroll", "h-[600px]", "max-sm:py-2", "max-sm:h-[400px]");
 
 menuBtn.addEventListener("click", () => {
     navLinks.classList.toggle("hidden");
