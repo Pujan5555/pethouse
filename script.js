@@ -10,8 +10,10 @@ const loading = document.getElementById("loading");
 const viewMoreBtn = document.getElementById("view-more-btn");
 const scrollSection = document.getElementById("scroll-section");
 const petModal = document.getElementById('pet-modal');
+const modalBox = document.getElementById('modal-box');
 
-petModal.classList.add("flex", "flex-col", "gap-2", "overflow-scroll", "h-[600px]", "max-sm:py-2", "max-sm:h-[400px]");
+petModal.classList.add("flex", "flex-col", "gap-2", "overflow-scroll", "h-[600px]", "max-sm:py-2", "max-sm:h-[300px]");
+modalBox.classList.add('rounded-md');
 
 menuBtn.addEventListener("click", () => {
     navLinks.classList.toggle("hidden");
