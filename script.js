@@ -15,7 +15,6 @@ const sort = document.getElementById("sort");
 
 // sorting
 sort.addEventListener("click", async () => {
-    petMain.innerHTML = "";
     const response = await fetch('https://openapi.programming-hero.com/api/peddy/pets');
     const info = await response.json();
     const data = info.pets;
@@ -29,13 +28,14 @@ sort.addEventListener("click", async () => {
     });
     const sortobj = Object.fromEntries(petID.map((id, i) => [id, priceList[i]]));
     const sortPriceList = (Object.values(sortobj).sort((x, y) => x - y));
+    const sortedKeys = Object.entries(sortobj).sort((a, b) => a[1] - b[1]).map(entry => entry[0]);
+    petMain.innerHTML = "";
     for (let i = 0; i < data.length; i++) {
-        const id = Object.keys(sortobj).find(key => sortobj[key] === sortPriceList[i]);
-        LoadById(id);
+        LoadById(parseInt(sortedKeys[i]));
     }
 });
 async function LoadById(id) {
-    const res = await fetch('https://openapi.programming-hero.com/api/peddy/pet/'+id);
+    const res = await fetch('https://openapi.programming-hero.com/api/peddy/pet/' + id);
     const info = await res.json();
     const data = info.petData;
     const petCard = document.createElement('div');
@@ -71,11 +71,81 @@ async function LoadById(id) {
                     <p class="text-md text-[#131313] flex">Price: ${data.price} <img src="https://img.icons8.com/?size=100&id=0oWpxDgVkkru&format=png&color=131313" class="w-6 h-6"/></p>
                 </div>
                 <div class="flex items-center gap-2 justify-around w-full">
-                    <button class=" text-blue-400 px-4 py-2 rounded-lg hover:text-blue-600 hover:border-blue-600 transition-all border-2 border-blue-300" id="p"> <img src="https://img.icons8.com/?size=100&id=u8MTpAq972MG&format=png&color=60a5fa" class="w-6 h-6"/> </button>
-                    <button class=" text-blue-400 px-4 py-2 rounded-lg hover:text-blue-600 hover:border-blue-600 transition-all border-2 border-blue-300" id="adopt">Adopt</button>
-                    <button class="text-blue-400 px-4 py-2 rounded-lg hover:text-blue-600 hover:border-blue-600 transition-all border-2 border-blue-300" onclick="my_modal.showModal()" id = "details">Details</button>
+                    <button class=" text-blue-400 px-4 py-2 rounded-lg hover:text-blue-600 hover:border-blue-600 transition-all border-2 border-blue-300" id="like${data.petId}"> <img src="https://img.icons8.com/?size=100&id=u8MTpAq972MG&format=png&color=60a5fa" class="w-6 h-6"/> </button>
+                    <button class=" text-blue-400 px-4 py-2 rounded-lg hover:text-blue-600 hover:border-blue-600 transition-all border-2 border-blue-300" id="adopted${data.petId}">Adopt</button>
+                    <button class="text-blue-400 px-4 py-2 rounded-lg hover:text-blue-600 hover:border-blue-600 transition-all border-2 border-blue-300" onclick="my_modal.showModal()" id="TheDetail${data.petId}">Details</button>
                 </div>`;
     petMain.append(petCard);
+    let isClear = false;
+    document.getElementById(`like${data.petId}`).addEventListener("click", () => {
+        isClear = true;
+        const likePet = document.createElement("div");
+        const clearLiked = "likedone";
+        likePet.innerHTML = `
+                    <img src="${data.image}" class="rounded-lg"/>
+                `;
+        petAdded.appendChild(likePet);
+        if (isClear) {
+            clearButton.innerHTML = `
+                    <button class="text-blue-400 px-4 py-2 rounded-lg hover:text-blue-600 hover:border-blue-600 transition-all border-2 border-blue-300" id=${clearLiked}>Clear All</button>
+                `;
+        }
+        document.getElementById(clearLiked).addEventListener("click", () => {
+            petAdded.innerHTML = "";
+            clearButton.innerHTML = "";
+            isClear = false;
+        });
+    });
+    document.getElementById(`TheDetail${data.petId}`).addEventListener("click", () => {
+        showModalAfterSortFunction(data.petId);
+    });
+    document.getElementById(`adopted${data.petId}`).addEventListener("click", (e) => {
+        e.target.innerHTML = "Adopted";
+        e.target.disabled = true;
+        e.target.classList.remove(
+            "text-blue-400",
+            "px-4",
+            "py-2",
+            "rounded-lg",
+            "hover:text-blue-600",
+            "hover:border-blue-600",
+            "transition-all",
+            "border-2",
+            "border-blue-300"
+        );
+        e.target.classList.add("cursor-not-allowed");
+    });
+}
+async function showModalAfterSortFunction(pet_id) {
+    const res = await fetch('https://openapi.programming-hero.com/api/peddy/pet/' + pet_id);
+    const info = await res.json();
+    const data = info.petData;
+    petModal.innerHTML = `<img src = "${data.image}" class="object-cover w-full" />
+        <h1 class = "font-bold text-2xl pt-2">${data.pet_name}</h1>
+        <div class="flex items-center gap-2 justify-start w-full">
+                <img src="https://img.icons8.com/?size=100&id=2bbPBbZvbi8l&format=png&color=131313" alt="pets" class="w-6 h-6"/>
+                <p class="text-md text-[#131313]">Breed: ${data.breed}</p>
+        </div>
+        <div class="flex items-center gap-2 justify-start w-full">
+                <img src="https://img.icons8.com/?size=100&id=vwGXRtPWrZSn&format=png&color=131313" alt="pets" class="w-6 h-6"/>
+                <p class="text-md text-[#131313]">Birth: ${data.date_of_birth}</p>
+        </div>
+        <div class="flex items-center gap-2 justify-start w-full">
+                <img src="https://img.icons8.com/?size=100&id=Kv6q3DKYDp1T&format=png&color=131313" alt="pets" class="w-6 h-6"/>
+                <p class="text-md text-[#131313]">Gender: ${data.gender}</p>
+        </div>
+        <div class="flex items-center gap-2 justify-start w-full">
+                <img src="https://img.icons8.com/?size=100&id=0oWpxDgVkkru&format=png&color=131313" alt="pets" class="w-6 h-6"/>
+                <p class="text-md text-[#131313] flex">Price: ${data.price} <img src="https://img.icons8.com/?size=100&id=0oWpxDgVkkru&format=png&color=131313" class="w-6 h-6"/></p>
+        </div>
+        <div class="flex items-center gap-2 justify-start w-full">
+                <img src="https://img.icons8.com/?size=100&id=Nqk16xLY1vt5&format=png&color=131313" alt="pets" class="w-6 h-6"/>
+                <p class="text-md text-[#131313] flex">Vaccinated Status: ${data.vaccinated_status}</p>
+        </div>
+        <div class="flex flex-col gap-2 justify-between w-full">
+                <h1 class = "font-bold text-lg">Details Information:</h1>
+                <p class="text-center">${data.pet_details}</p>
+        </div>`;
 }
 // sorting
 
