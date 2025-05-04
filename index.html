@@ -9,7 +9,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -99,12 +98,23 @@
             <div class="w-full grid grid-cols-2 gap-4 max-sm:grid-cols-3" id="pet-added"></div>
             <div id="clear-btn"></div>
         </div>
+        <!-- Open the modal using ID.showModal() method -->
+        <dialog id="my_modal" class="modal modal-bottom sm:modal-middle max-sm:px-3">
+            <div class="modal-box">
+                <div id="pet-modal"></div>
+                <div class="modal-action bg-blue-200 rounded-md opacity-70">
+                    <form method="dialog" class="mx-auto">
+                        <!-- if there is a button in form, it will close the modal -->
+                        <button class="btn font-bold text-blue-700 hover:text-blue-900 hover:font-extrabold">Close</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
     </section>
 
     <footer class="flex items-center justify-center w-full">
         <img src="pet.webp" alt="">
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     <script src="script.js"></script>
 </body>
 

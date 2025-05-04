@@ -9,6 +9,9 @@ const clearButton = document.getElementById("clear-btn");
 const loading = document.getElementById("loading");
 const viewMoreBtn = document.getElementById("view-more-btn");
 const scrollSection = document.getElementById("scroll-section");
+const petModal = document.getElementById('pet-modal');
+
+petModal.classList.add("flex", "flex-col", "gap-2", "overflow-scroll", "h-[600px]", "max-sm:py-2");
 
 menuBtn.addEventListener("click", () => {
     navLinks.classList.toggle("hidden");
@@ -128,7 +131,7 @@ const petCardFunction = async (
                 <div class="flex items-center gap-2 justify-around w-full">
                     <button class=" text-blue-400 px-4 py-2 rounded-lg hover:text-blue-600 hover:border-blue-600 transition-all border-2 border-blue-300" id="${petId}"> <img src="https://img.icons8.com/?size=100&id=u8MTpAq972MG&format=png&color=60a5fa" class="w-6 h-6"/> </button>
                     <button class=" text-blue-400 px-4 py-2 rounded-lg hover:text-blue-600 hover:border-blue-600 transition-all border-2 border-blue-300">Adopt</button>
-                    <button class="text-blue-400 px-4 py-2 rounded-lg hover:text-blue-600 hover:border-blue-600 transition-all border-2 border-blue-300">Details</button>
+                    <button class="text-blue-400 px-4 py-2 rounded-lg hover:text-blue-600 hover:border-blue-600 transition-all border-2 border-blue-300" onclick="my_modal.showModal()" id = "details${petId}">Details</button>
                 </div>
             `;
         petMain.appendChild(petCard);
@@ -152,8 +155,36 @@ const petCardFunction = async (
                 isClear = false;
             });
         });
+        // modal
+        document.getElementById(`details${petId}`).addEventListener("click", () => {
+            petModal.innerHTML = `<img src = "${element.image}" class="object-cover w-full" />
+            <h1 class = "font-bold text-2xl pt-2">${element.pet_name}</h1>
+            <div class="flex items-center gap-2 justify-start w-full">
+                    <img src="https://img.icons8.com/?size=100&id=2bbPBbZvbi8l&format=png&color=131313" alt="pets" class="w-6 h-6"/>
+                    <p class="text-md text-[#131313]">Breed: ${element.breed}</p>
+            </div>
+            <div class="flex items-center gap-2 justify-start w-full">
+                    <img src="https://img.icons8.com/?size=100&id=vwGXRtPWrZSn&format=png&color=131313" alt="pets" class="w-6 h-6"/>
+                    <p class="text-md text-[#131313]">Birth: ${element.date_of_birth}</p>
+            </div>
+            <div class="flex items-center gap-2 justify-start w-full">
+                    <img src="https://img.icons8.com/?size=100&id=Kv6q3DKYDp1T&format=png&color=131313" alt="pets" class="w-6 h-6"/>
+                    <p class="text-md text-[#131313]">Gender: ${element.gender}</p>
+            </div>
+            <div class="flex items-center gap-2 justify-start w-full">
+                    <img src="https://img.icons8.com/?size=100&id=0oWpxDgVkkru&format=png&color=131313" alt="pets" class="w-6 h-6"/>
+                    <p class="text-md text-[#131313] flex">Price: ${element.price} <img src="https://img.icons8.com/?size=100&id=0oWpxDgVkkru&format=png&color=131313" class="w-6 h-6"/></p>
+            </div>
+            <div class="flex items-center gap-2 justify-start w-full">
+                    <img src="https://img.icons8.com/?size=100&id=Nqk16xLY1vt5&format=png&color=131313" alt="pets" class="w-6 h-6"/>
+                    <p class="text-md text-[#131313] flex">Vaccinated Status: ${element.vaccinated_status}</p>
+            </div>
+            <div class="flex flex-col gap-2 justify-between w-full">
+                    <h1 class = "font-bold text-lg">Details Information:</h1>
+                    <p class="text-center">${element.pet_details}</p>
+            </div>`;
+        });
     });
-    console.log(petMain.children.length);
     if (petMain.children.length === 0) {
         petMain.innerHTML = `<img src="error.webp" class="mx-auto text-center col-span-3"/>
         <h1 class="font-bold text-2xl text-center mx-auto col-span-3">No Information Available</h1>
